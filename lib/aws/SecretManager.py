@@ -1,6 +1,5 @@
 import boto3
 from botocore.exceptions import ClientError
-import json
 
 class SecretsManagerClass:
     def __init__(self, secret_name:str = ''):

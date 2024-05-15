@@ -1,5 +1,4 @@
 import json
-import sys, os
 from base64 import b64encode
 from .RequestManager import RequestManagerClass
 
@@ -14,14 +13,14 @@ class AuthorizationManagerClass(RequestManagerClass):
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic {}'.format(b64encode(f"{self.secret_credencial['client_id']}:{self.secret_credencial['client_secret']}".encode()).decode())
         }
-        #At first we refresh the token
-        self.get_token()
-
-    def get_token(self):
         self.data = {
             'grant_type': 'refresh_token',
             'refresh_token': self.secret_token['refresh_token']
         }
+        #At first we refresh the token
+        self.get_token()
+
+    def get_token(self):
         response = self.post_request()
         if response.status_code == 200:
             payload = response.json()
