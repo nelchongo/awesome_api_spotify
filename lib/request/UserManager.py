@@ -13,7 +13,7 @@ class UserManagerClass(RequestManagerClass):
             self.me = {}
             print("Error: {}\n".format(response.text))
 
-    def get_top(self, type = 'artists', time_range:str = 'short_term', limit:int = 50):
+    def get_top(self, type = 'artist', time_range:str = 'short_term', limit:int = 50):
         response = super().get_request('me/top/{}?time_range={}&limit={}'.format(type, time_range, limit))
         if response.status_code == 200:
             print(response.json())

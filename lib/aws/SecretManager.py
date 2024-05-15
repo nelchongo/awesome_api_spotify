@@ -3,19 +3,20 @@ from botocore.exceptions import ClientError
 import json
 
 class SecretsManagerClass:
-    def __init__(self):
+    def __init__(self, secret_name:str = ''):
         self.client = boto3.client(service_name='secretsmanager', region_name='us-east-1')
+        self.secret_name = secret_name
 
-    def update_secret(self, secret_name:str, secret_value:str):
+    def update_secret(self, secret_value:str):
         try:
-            self.client.update_secret(SecretId = secret_name, SecretString = secret_value)
-            print(f"Secret '{secret_name}' added successfully.")
+            self.client.update_secret(SecretId = self.secret_name, SecretString = secret_value)
+            print(f"Secret '{self.secret_name}' added successfully.")
         except ClientError as e:
             print("Failed to add secret:", e)
 
-    def get_secret(self, secret_name):
+    def get_secret(self):
         try:
-            response = self.client.get_secret_value(SecretId = secret_name)
+            response = self.client.get_secret_value(SecretId = self.secret_name)
             if 'SecretString' in response:
                 return response['SecretString']
             else:

@@ -9,8 +9,9 @@ sys.path.append(parent_dir)
 
 from aws.SecretManager import SecretsManagerClass
 
-secret_manager = SecretsManagerClass()
-credentials = json.loads(secret_manager.get_secret('dev/awesome_api_spotify/client_credentials'))
+secret_manager = SecretsManagerClass(secret_name = 'dev/awesome_api_spotify/client_credentials')
+client_token = SecretsManagerClass(secret_name = 'dev/awesome_api_spotify/client_token')
+credentials = json.loads(secret_manager.get_secret())
 
 class SpotifyAuthRedirect:
     @cherrypy.expose
@@ -31,7 +32,7 @@ class SpotifyAuthRedirect:
         raise cherrypy.HTTPRedirect(auth_url)
 
     @cherrypy.expose
-    def callback(self, code=None, state=None):
+    def callback(self, code = None, state = None):
         # Handle the callback parameters
         if code and state:
             # Construct the request body for token exchange
@@ -48,9 +49,9 @@ class SpotifyAuthRedirect:
                 'Authorization': f'Basic {auth_header}'
             }
             # Make a POST request to exchange the code for a token
-            response = requests.post('https://accounts.spotify.com/api/token', data=data, headers=headers)
-            print(response.json())
-            secret_manager.update_secret('dev/awesome_api_spotify/client_token', json.dumps(response.json()))
+            response = requests.post('https://accounts.spotify.com/api/token', data = data, headers = headers)
+            client_token.update_secret(json.dumps(response.json()))
+            return response.json()
         else:
             return "Missing parameters in callback URL"
 

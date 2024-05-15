@@ -12,4 +12,4 @@ class RequestManagerClass():
 
     def get_request(self, url:str) -> requests.Response:
         url:str = self.url + url
-        return requests.get(url, params = self.params, headers = self.headers, data = self.data)
+        return requests.get(url = url, params = self.params, headers = self.headers, data = self.data)
