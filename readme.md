@@ -34,7 +34,7 @@ Authorization in the Spotify is simple:
 
 3. Startup the lightweight rest
 
-        python lib/spotify_authorization_request/rest.py
+        python local_rest/rest.py
 
 > **__NOTE__**: This will start a small server
 

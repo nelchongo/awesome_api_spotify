@@ -7,11 +7,11 @@ import sys, os
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
 
-from aws.SecretManager import SecretsManagerClass
+from awesome_spotify_packages.aws import SecretManager as secret_manager
 
-secret_manager = SecretsManagerClass(secret_name = 'dev/awesome_api_spotify/client_credentials')
-client_token = SecretsManagerClass(secret_name = 'dev/awesome_api_spotify/client_token')
-credentials = json.loads(secret_manager.get_secret())
+client_credentials = secret_manager(secret_name = 'dev/awesome_api_spotify/client_credentials')
+client_token = secret_manager(secret_name = 'dev/awesome_api_spotify/client_token')
+credentials = json.loads(client_credentials.get_secret())
 
 class SpotifyAuthRedirect:
     @cherrypy.expose

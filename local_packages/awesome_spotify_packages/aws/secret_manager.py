@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 
-class SecretsManagerClass:
+class SecretManager:
     def __init__(self, secret_name:str = ''):
         self.client = boto3.client(service_name='secretsmanager', region_name='us-east-1')
         self.secret_name = secret_name

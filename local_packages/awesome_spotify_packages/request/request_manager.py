@@ -1,6 +1,6 @@
 import requests
 
-class RequestManagerClass():
+class RequestManager():
     def __init__(self, url:str = None, headers:dict = None, data:dict = {}, params:dict = {}):
         self.url:str = 'https://api.spotify.com/v1/' if url == None else url
         self.headers:dict = headers

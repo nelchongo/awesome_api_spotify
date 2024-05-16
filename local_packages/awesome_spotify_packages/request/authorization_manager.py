@@ -1,8 +1,8 @@
 import json
 from base64 import b64encode
-from .RequestManager import RequestManagerClass
+from .request_manager import RequestManager
 
-class AuthorizationManagerClass(RequestManagerClass):
+class AuthorizationManager(RequestManager):
     def __init__(self, client_token, client_credencial):
         self.url = 'https://accounts.spotify.com/api/token'
         #Fetch all the secrets and credentials
