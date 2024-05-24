@@ -3,6 +3,4 @@ __pycache__
 .terraform.*
 build/
 *.egg-info
-notebooks/
-notebooks/*
 .DS_Store
